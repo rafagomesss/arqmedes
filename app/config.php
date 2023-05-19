@@ -14,3 +14,4 @@ define('RESOURCES_PATH', DIR_ROOT . '/resources');
 define('VIEWS_PATH', RESOURCES_PATH . '/views');
 define('VIEWS_INCLUDES_PATH', VIEWS_PATH . '/includes');
 define('VIEWS_TEMPLATES', VIEWS_PATH . '/template');
+define('VIEWS_MODULES_PATH', VIEWS_PATH . '/modules');

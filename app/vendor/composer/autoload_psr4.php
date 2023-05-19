@@ -6,6 +6,8 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Arqmedes\\Models\\' => array($baseDir . '/src/Models'),
+    'Arqmedes\\Entities\\' => array($baseDir . '/src/Entities'),
     'Arqmedes\\Core\\' => array($baseDir . '/core'),
     'Arqmedes\\Controllers\\' => array($baseDir . '/src/Controllers'),
 );

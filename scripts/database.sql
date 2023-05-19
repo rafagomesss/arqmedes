@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS categories (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE product_categories (
+CREATE TABLE IF NOT EXISTS product_categories (
   product_id INT UNSIGNED NOT NULL COMMENT 'Identificador do produto',
   category_id INT UNSIGNED NOT NULL COMMENT 'Identificador da categoria',
   PRIMARY KEY (product_id, category_id),

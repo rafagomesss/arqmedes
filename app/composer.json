@@ -2,7 +2,9 @@
     "autoload": {
         "psr-4": {
             "Arqmedes\\Core\\" : "core/",
-            "Arqmedes\\Controllers\\" : "src/Controllers/"
+            "Arqmedes\\Controllers\\" : "src/Controllers/",
+            "Arqmedes\\Entities\\" : "src/Entities/",
+            "Arqmedes\\Models\\" : "src/Models/"
         }
     }
 }

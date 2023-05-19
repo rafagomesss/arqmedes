@@ -9,12 +9,22 @@ class ComposerStaticInit1b83c7f54e42947e083c68173efb3b19
     public static $prefixLengthsPsr4 = array (
         'A' => 
         array (
+            'Arqmedes\\Models\\' => 16,
+            'Arqmedes\\Entities\\' => 18,
             'Arqmedes\\Core\\' => 14,
             'Arqmedes\\Controllers\\' => 21,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'Arqmedes\\Models\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/Models',
+        ),
+        'Arqmedes\\Entities\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/Entities',
+        ),
         'Arqmedes\\Core\\' => 
         array (
             0 => __DIR__ . '/../..' . '/core',
@@ -26,9 +36,15 @@ class ComposerStaticInit1b83c7f54e42947e083c68173efb3b19
     );
 
     public static $classMap = array (
+        'Arqmedes\\Controllers\\HomeController' => __DIR__ . '/../..' . '/src/Controllers/HomeController.php',
+        'Arqmedes\\Controllers\\ProductController' => __DIR__ . '/../..' . '/src/Controllers/ProductController.php',
         'Arqmedes\\Core\\Controller' => __DIR__ . '/../..' . '/core/Controller.php',
         'Arqmedes\\Core\\Request' => __DIR__ . '/../..' . '/core/Request.php',
         'Arqmedes\\Core\\Router' => __DIR__ . '/../..' . '/core/Router.php',
+        'Arqmedes\\Core\\Session\\Flash' => __DIR__ . '/../..' . '/core/Session/Flash.php',
+        'Arqmedes\\Core\\Session\\Session' => __DIR__ . '/../..' . '/core/Session/Session.php',
+        'Arqmedes\\Entities\\Product' => __DIR__ . '/../..' . '/src/Entities/Product.php',
+        'Arqmedes\\Models\\ModelProduct' => __DIR__ . '/../..' . '/src/Models/ModelProduct.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 

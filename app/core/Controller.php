@@ -13,11 +13,14 @@ class Controller
         array $data = [],
     ): bool|string {
         $view = VIEWS_PATH . DIRECTORY_SEPARATOR . $view . '.phtml';
+
         if (!file_exists($view)) {
             return $this->notFound();
         }
+
         ob_start();
         extract($data);
+
         require_once VIEWS_INCLUDES_PATH . DIRECTORY_SEPARATOR . 'header.phtml';
         require_once $view;
         require_once VIEWS_INCLUDES_PATH . DIRECTORY_SEPARATOR . 'scripts.phtml';
