@@ -10,6 +10,11 @@ class ModelProduct extends Model
 {
     protected $table = 'products';
 
+    public function __construct()
+    {
+        
+    }
+
     public function createProductWithCategory(
         int $idProduct,
         array $categories
