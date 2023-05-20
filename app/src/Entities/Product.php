@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Arqmedes\Entities;
 
+use AllowDynamicProperties;
+
+#[AllowDynamicProperties]
 class Product
 {
     public function __construct(array $data)

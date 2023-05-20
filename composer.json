@@ -1,0 +1,10 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Arqmedes\\Core\\" : "app/core/",
+            "Arqmedes\\Controllers\\" : "app/src/Controllers/",
+            "Arqmedes\\Entities\\" : "app/src/Entities/",
+            "Arqmedes\\Models\\" : "app/src/Models/"
+        }
+    }
+}
