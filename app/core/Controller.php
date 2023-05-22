@@ -41,7 +41,6 @@ class Controller
 
         require_once VIEWS_INCLUDES_PATH . DIRECTORY_SEPARATOR . 'header.phtml';
         require_once $view;
-        require_once VIEWS_INCLUDES_PATH . DIRECTORY_SEPARATOR . 'scripts.phtml';
         require_once VIEWS_INCLUDES_PATH . DIRECTORY_SEPARATOR . 'footer.phtml';
 
         $content = ob_get_clean();
