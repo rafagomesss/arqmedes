@@ -1,27 +1,36 @@
-version: '3'
+version: "3.8"
 services:
-  web:
+  arqmedes:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: arqmedes
     ports:
       - "80:80"
-    depends_on:
-      - db
     volumes:
       - ./:/var/www/html/arqmedes
-      - ./.docker/vhost.conf:/etc/apache2/sites-available/000-default.conf
+      - ./docker/apache/config/vhost.conf:/etc/apache2/sites-available/000-default.conf
     environment:
-      - APACHE_RUN_USER=#1000
-      - APACHE_RUN_GROUP=#1000
-      - MYSQL_HOST=db
+      - APACHE_RUN_USER=www-data
+      - APACHE_RUN_GROUP=www-data
+    depends_on:
+      - db
+    env_file:
+      - ./.env
   db:
-    image: mysql:latest
+    container_name: mysql
+    build: ./docker/mysql
     restart: always
-    command: --default-authentication-plugin=mysql_native_password
+    env_file:
+      - ./.env
+    ports:
+      - "3306:3306"
     environment:
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: arqmedes
+      MYSQL_PASSWORD: root
     volumes:
-      - ./data/mysql:/var/lib/mysql
+      - "./docker/mysql/config/my.cnf:/etc/mysql/conf.d/custom.cnf:ro"
+      - "./docker/mysql/dbdata:/var/lib/mysql"
+      - "./docker/mysql/initdb:/docker-entrypoint-initdb.d"
+    command: --init-file /docker-entrypoint-initdb.d/init.sql

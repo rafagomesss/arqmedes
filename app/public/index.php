@@ -1,4 +1,5 @@
 <?php
+
 use Arqmedes\Core\Session\Session;
 
 

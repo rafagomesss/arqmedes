@@ -14,28 +14,19 @@
                 </tr>
             </thead>
             <tbody>
+                <?php foreach ($produtos as $produto) : ?>
                 <tr>
-                    <td>JH61Sgs62</td>
-                    <td>Veja</td>
-                    <td>1.90</td>
-                    <td>150</td>
+                    <td><?= $produto->sku; ?></td>
+                    <td><?= $produto->name; ?></td>
+                    <td>R$ <?= number_format($produto->price, 2, ',', '.'); ?></td>
+                    <td><?= $produto->quantity; ?></td>
                     <td class="d-flex justify-content-around">
                         <a href="">[Detalhes]</a> |
                         <a href="">[Editar]</a> |
                         <a href="">[Excluir]</a>
                     </td>
                 </tr>
-                <tr>
-                    <td>GDHSG27s</td>
-                    <td>Coca Cola</td>
-                    <td>5.70</td>
-                    <td>12</td>
-                    <td class="d-flex justify-content-around">
-                        <a href="">[Detalhes]</a> |
-                        <a href="">[Editar]</a> |
-                        <a href="">[Excluir]</a>
-                    </td>
-                </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>

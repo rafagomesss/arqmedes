@@ -15,3 +15,12 @@ define('VIEWS_PATH', RESOURCES_PATH . '/views');
 define('VIEWS_INCLUDES_PATH', VIEWS_PATH . '/includes');
 define('VIEWS_TEMPLATES', VIEWS_PATH . '/template');
 define('VIEWS_MODULES_PATH', VIEWS_PATH . '/modules');
+
+
+define('DB_CONNECT', [
+    'DB_HOST' => 'db',
+    'DB_USER' => 'root',
+    'DB_PASSWORD' => 'MYSQL_ROOT_PASSWORD',
+    'DB_DRIVER' => 'mysql',
+    'DB_NAME' => 'arqmedes',
+]);

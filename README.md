@@ -26,3 +26,5 @@ Xampp v.3.3.0
 127.0.0.1	www.arqmedes.com.br
 ```
 
+
+docker run --name mysql8.0 -e MYSQL_ROOT_PASSWORD=root -d mysql:8.0

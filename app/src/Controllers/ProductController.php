@@ -12,13 +12,17 @@ class ProductController extends Controller
 {
     public function index()
     {
-        return $this->render('modules/product/list');
+        $data = [
+            'produtos' => (new ModelProduct())->all(),
+        ];
+        return $this->render('modules/product/list', $data);
     }
 
     public function create()
     {
         $data = [
-            'action' => 'Registrar'
+            'action' => 'Registrar',
+
         ];
         return $this->render('modules/product/create-update', $data);
     }
@@ -27,12 +31,12 @@ class ProductController extends Controller
     {
         $data = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
         $product = new Product($data);
-        $productCategories = $product->categories;
+        $productCategories = $data['categories'];
+        $response = (new ModelProduct())->create($product);
         (new ModelProduct())->createProductWithCategory(1, $productCategories);
 
         // echo '<pre>' . print_r($product, true) . '</pre>';
         // exit();
-        $response = (new ModelProduct())->create($product);
         // echo '<pre>' . print_r($response, true) . '</pre>';
         // exit();
     }

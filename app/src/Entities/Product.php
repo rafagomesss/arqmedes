@@ -19,6 +19,7 @@ class Product
         $keys = array_keys($data);
 
         foreach ($keys as $key) {
+            if ($key === 'categories') continue;
             $this->$key = $data[$key];
         }
 

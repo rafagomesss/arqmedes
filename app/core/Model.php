@@ -4,12 +4,19 @@ declare(strict_types=1);
 
 namespace Arqmedes\Core;
 
+use Arqmedes\Core\Database\MySQLDatabase;
 use PDO;
 use PDOStatement;
 
 class Model
 {
     protected $connection;
+    protected $table;
+
+    public function __construct()
+    {
+        $this->connection = MySQLDatabase::connect();
+    }
 
     private function bind($sql, $data): PDOStatement
     {
@@ -25,10 +32,15 @@ class Model
     {
         $fields = implode(",", array_keys((array) $data));
         $placeholders = ":" . implode(", :", array_keys((array) $data));
-        $sql = "INSERT INTO tabela ($fields) VALUES ($placeholders)";
+        $sql = "INSERT INTO $this->table ($fields) VALUES ($placeholders)";
 
         $statement = $this->bind($sql, $data);
         $statement->execute();
         return $this->connection->lastInsertId();
+    }
+
+    public function all()
+    {
+        return $this->connection->query("SELECT * FROM $this->table")->fetchAll();
     }
 }
