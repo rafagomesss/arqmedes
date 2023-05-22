@@ -7,6 +7,7 @@ namespace Arqmedes\Core;
 use Arqmedes\Core\Database\MySQLDatabase;
 use PDO;
 use PDOStatement;
+use stdClass;
 
 class Model
 {
@@ -18,7 +19,7 @@ class Model
         $this->connection = MySQLDatabase::connect();
     }
 
-    private function bind($sql, $data): PDOStatement
+    protected function bind($sql, $data): PDOStatement
     {
         $statement = $this->connection->prepare($sql);
         foreach ($data as $key => $value) {
@@ -36,11 +37,56 @@ class Model
 
         $statement = $this->bind($sql, $data);
         $statement->execute();
-        return $this->connection->lastInsertId();
+        $lastInsertedId = intval($this->connection->lastInsertId());
+        return $this->find($lastInsertedId);
     }
 
     public function all()
     {
         return $this->connection->query("SELECT * FROM $this->table")->fetchAll();
+    }
+
+    public function where(array $conditions)
+    {
+        $whereConditions = [];
+        foreach ($conditions as $field => $value) {
+            $whereConditions[] = "$field = :$field";
+        }
+        $whereClause = implode(" AND ", $whereConditions);
+        $sql = "SELECT * FROM $this->table WHERE $whereClause";
+
+        $statement = $this->bind($sql, $conditions);
+        $statement->execute();
+        return $statement->fetchAll();
+    }
+
+    public function join(string $table, array $conditions, string $type = 'INNER')
+    {
+        $joinType = strtoupper($type) . ' JOIN';
+        $joinConditions = [];
+        $parameters = [];
+
+        foreach ($conditions as $field1 => $field2) {
+            $joinConditions[] = "$field1 = $field2";
+        }
+
+        $joinClause = implode(" AND ", $joinConditions);
+        $sql = "SELECT * FROM $this->table $joinType $table ON $joinClause";
+
+        $statement = $this->connection->prepare($sql);
+        $statement->execute($parameters);
+
+        return $statement->fetchAll();
+    }
+
+    public function find(int $id): ?stdClass
+    {
+        $sql = "SELECT * FROM $this->table WHERE id = :id";
+        $statement = $this->bind($sql, ['id' => $id]);
+        $statement->execute();
+        if ($statement->rowCount() > 0) {
+            return $statement->fetch();
+        }
+        return null;
     }
 }

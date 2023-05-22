@@ -8,6 +8,17 @@ $routes = [
             'editar' => 'edit',
             'cadastrar' => 'create',
             'registrar' => 'store',
+            'detalhes' => 'show',
+        ],
+    ],
+    'categorias' => [
+        'controller' => 'CategoryController',
+        'actions' => [
+            '' => 'index',
+            'editar' => 'edit',
+            'cadastrar' => 'create',
+            'registrar' => 'store',
+            'detalhes' => 'show',
         ],
     ],
 ];

@@ -11,7 +11,7 @@ class Request
     public function __construct(
         public string $controller = DEFAULT_CONTROLLER,
         public string $action = DEFAULT_ACTION,
-        public ?array $args = []
+        public $args = []
     ) {
         $uri = parse_url(substr($_SERVER['REQUEST_URI'], 1), PHP_URL_PATH);
         $uri = explode('/', $uri);
@@ -51,6 +51,11 @@ class Request
         $this->action = $action;
     }
 
+    public function getAction()
+    {
+        return $this->action;
+    }
+
     public function setController(?string $controller)
     {
         $controller = empty($controller)
@@ -67,7 +72,6 @@ class Request
         ) {
             $args = count($args) === 1 ? current($args) : $args;
         }
-
         $this->args = $args;
     }
 }

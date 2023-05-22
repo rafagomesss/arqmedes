@@ -20,15 +20,14 @@ services:
   db:
     container_name: mysql
     build: ./docker/mysql
-    restart: always
+    restart: unless-stopped
     env_file:
       - ./.env
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: arqmedes
-      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     volumes:
       - "./docker/mysql/config/my.cnf:/etc/mysql/conf.d/custom.cnf:ro"
       - "./docker/mysql/dbdata:/var/lib/mysql"

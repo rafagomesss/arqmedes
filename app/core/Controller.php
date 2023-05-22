@@ -4,10 +4,28 @@ declare(strict_types=1);
 
 namespace Arqmedes\Core;
 
-use Exception;
-
 class Controller
 {
+    protected string $activeController = 'home';
+
+    protected function redirect(string $uri)
+    {
+        header('Location: ' . $this->getBaseUrl() . $uri);
+        exit();
+    }
+
+    protected function getBaseUrl(): string
+    {
+        $base = (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on') ? 'https://' : 'http://';
+        $base .= $_SERVER['SERVER_NAME'];
+        if ($_SERVER['SERVER_PORT'] != '80') {
+            $base .= ':' . $_SERVER['SERVER_PORT'];
+        }
+        $base .= BASE_DIR;
+
+        return $base;
+    }
+
     protected function render(
         string $view,
         array $data = [],

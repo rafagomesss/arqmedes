@@ -1,0 +1,7 @@
+<form action="/categorias/<?= strtolower($action); ?>" method="post">
+    <div class="form-group">
+        <label for="name">Categoria</label>
+        <input id="name" name="name" type="text" class="form-control">
+    </div>
+    <button class="btn btn-primary btn-sm btn-block p-2 float-right"><?= $action; ?></button>
+</form>

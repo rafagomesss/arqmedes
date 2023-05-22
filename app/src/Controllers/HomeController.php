@@ -10,11 +10,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $data = [
-            'title' => 'Home',
-            'content' => 'Olá mundo!'
-        ];
-        return $this->render('home/index', $data);
+        return $this->render('home/index');
     }
 
     public function about()

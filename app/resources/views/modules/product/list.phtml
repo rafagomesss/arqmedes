@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-12 d-flex justify-content-end align-items-end mb-5">
+    <div class="col-12 d-flex justify-content-end align-items-center mb-5">
         <a class="btn btn-sm btn-success text-white" href="/produtos/cadastrar">Cadastrar Produto +</a>
     </div>
     <div class="col">
@@ -21,8 +21,8 @@
                     <td>R$ <?= number_format($produto->price, 2, ',', '.'); ?></td>
                     <td><?= $produto->quantity; ?></td>
                     <td class="d-flex justify-content-around">
-                        <a href="">[Detalhes]</a> |
-                        <a href="">[Editar]</a> |
+                        <a href="/produtos/detalhes/<?= $produto->id;?>">[Detalhes]</a> |
+                        <a href="/produtos/editar/<?= $produto->id;?>">[Editar]</a> |
                         <a href="">[Excluir]</a>
                     </td>
                 </tr>

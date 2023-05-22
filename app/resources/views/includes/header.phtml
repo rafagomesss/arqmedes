@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title ?? 'Arqmedes'; ?></title>
     <link rel="stylesheet" href="<?= CSS_PATH; ?>/style.css">
-    <!-- <link rel="stylesheet" href="<?= CSS_PATH; ?>/bootstrap/bootstrap.min.css"> -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="<?= CSS_PATH; ?>/bootstrap/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="<?= CSS_PATH; ?>/sidebar-content.css">
     <link rel="stylesheet" href="<?= CSS_PATH; ?>/fontawesome/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap" rel="stylesheet">
@@ -19,3 +19,8 @@
                 <?php require_once VIEWS_INCLUDES_PATH . '/navbar.phtml'; ?>
                     <div class="container-fluid">
                         <main>
+                            <?php if ($type = Arqmedes\Core\Session\Flash::hasFlashMessage()) : ?>
+                                <?php require_once VIEWS_COMPONENTS_PATH . '/alert.phtml'; ?>
+                            <?php endif; ?>
+                            <?php echo '<pre>' . print_r($this, true) . '</pre>';
+                            exit();?>

@@ -32,4 +32,22 @@ class ModelProduct extends Model
         }
         return false;
     }
+
+    public function getProductWithCategories(int $id)
+    {
+        $sql = "
+            SELECT
+                p.*,
+                group_concat(c.id separator ',') as categories_id,
+                group_concat(c.name separator ',') as categories
+            FROM products p
+                LEFT JOIN product_categories pc ON pc.product_id = p.id
+                LEFT JOIN categories c ON c.id = pc.category_id
+            WHERE p.id = :id
+                GROUP BY p.id
+        ";
+        $statement = $this->bind($sql, ['id' => $id]);
+        $statement->execute();
+        return $statement->fetch();
+    }
 }

@@ -2,28 +2,51 @@
     <div class="p-4 pt-5">
         <a href="#" class="img logo rounded-circle mb-5" style="background-image: url(assets/images/logo.jpg);"></a>
         <ul class="list-unstyled components mb-5">
-            <li class="active">
+            <li class="<?= $this->activeController === 'home' ? 'active' : ''; ?>">
                 <a href="/">Home</a>
             </li>
-            <li>
-                <a href="#produtosSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Produtos</a>
-                <ul class="collapse list-unstyled" id="produtosSubMenu">
-                    <li>
+            <li class="<?= $this->activeController === 'produtos' ? 'active' : ''; ?>">
+                <a
+                    class="dropdown-toggle"
+                    data-bs-toggle="collapse"
+                    href="#produtosSubMenu"
+                    role="button"
+                    aria-expanded="<?= $this->activeController === 'produtos' ? 'true' : 'false'; ?>"
+                    aria-controls="produtosSubMenu"
+                >
+                    Produtos
+                </a>
+                <ul
+                    class="collapse list-unstyled <?= $this->activeController === 'produtos' ? 'show' : ''; ?>"
+                    id="produtosSubMenu"
+                >
+                    <li class="dropdown-item">
                         <a href="/produtos">Lista</a>
                     </li>
-                    <li>
+                    <li class="dropdown-item">
                         <a href="/produtos/cadastrar">Cadastrar</a>
                     </li>
                 </ul>
             </li>
-            <li>
-                <a href="#categoriesSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Categorias</a>
-                <ul class="collapse list-unstyled" id="categoriesSubMenu">
+            <li class="<?= $this->activeController === 'categorias' ? 'active' : ''; ?>">
+                <a
+                    class="dropdown-toggle"
+                    data-bs-toggle="collapse"
+                    href="#categoriesSubMenu"
+                    role="button"
+                    aria-expanded="<?= $this->activeController === 'categorias' ? 'true' : 'false'; ?>"
+                    aria-controls="categoriesSubMenu"
+                >
+                    Categorias
+                </a>
+                <ul class="collapse list-unstyled <?= $this->activeController === 'categorias' ? 'show' : ''; ?>"
+                    id="categoriesSubMenu"
+                >
                     <li>
                         <a href="/categorias">Lista</a>
                     </li>
                     <li>
-                        <a href="/categorias/registrar">Cadastrar</a>
+                        <a href="/categorias/cadastrar">Cadastrar</a>
                     </li>
                 </ul>
             </li>

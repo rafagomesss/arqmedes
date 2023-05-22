@@ -17,4 +17,16 @@ class Flash
         Session::delete($key);
         return $message;
     }
+
+    public static function hasFlashMessage(): string|bool
+    {
+        if (!empty($_SESSION)) {
+            foreach(array_keys($_SESSION) as $key) {
+                if (in_array($key, ALERT_TYPES)) {
+                    return $key;
+                }
+            }
+        }
+        return false;
+    }
 }
