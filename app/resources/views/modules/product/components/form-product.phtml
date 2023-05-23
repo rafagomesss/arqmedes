@@ -1,5 +1,8 @@
 <form action="/produtos/<?= strtolower($action); ?>" method="post">
     <div class="form-group">
+        <?php if ($action === 'atualizar') : ?>
+            <input type="hidden" name="id" value="<?= $product->id; ?>">
+        <?php endif; ?>
         <label for="name">Produto</label>
         <input id="name" name="name" type="text" class="form-control" value="<?= $product->name ?? null; ?>">
     </div>

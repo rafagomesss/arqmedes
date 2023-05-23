@@ -15,6 +15,13 @@ class ModelProduct extends Model
         parent::__construct();
     }
 
+    private function deleteAllProductCategories(int $id)
+    {
+        $sql = "DELETE FROM product_categories WHERE product_id = :id";
+        $statement = $this->bind($sql, ['id' => $id]);
+        $statement->execute();
+    }
+
     public function createProductWithCategory(
         int $idProduct,
         array $categories
@@ -31,6 +38,14 @@ class ModelProduct extends Model
             return true;
         }
         return false;
+    }
+
+    public function updateProductCategories(
+        int $idProduct,
+        array $categories
+    ) {
+        $this->deleteAllProductCategories($idProduct);
+        return $this->createProductWithCategory($idProduct, $categories);
     }
 
     public function getProductWithCategories(int $id)

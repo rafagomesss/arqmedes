@@ -9,6 +9,8 @@ use AllowDynamicProperties;
 #[AllowDynamicProperties]
 class Product
 {
+    public int $id;
+
     public function __construct(array $data)
     {
         $this->defineObject($data);
@@ -24,7 +26,7 @@ class Product
                 continue;
             }
             if ($key === 'categories') continue;
-            $this->$key = $data[$key];
+            $this->$key = $key === 'id' ? intval($data[$key]) : $data[$key];
         }
     }
 }

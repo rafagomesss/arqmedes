@@ -120,4 +120,34 @@ class ProductController extends Controller
         Flash::set($type, $message);
         return $this->redirect('/produtos');
     }
+
+    public function update()
+    {
+        $data = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
+
+        if (
+            empty($data['id'])
+            || !$this->productExists(intval(trim($data['id'])))
+        ) {
+            Flash::set('warning', 'Produto <u>não</u> encontrado!');
+            return $this->redirect('/produtos');
+        }
+
+        $product = new Product($data);
+        $productCategories = $data['categories'] ?? null;
+        $response = (new ModelProduct())->update($product);
+
+        if ($response && $productCategories) {
+            (new ModelProduct())->updateProductCategories($response->id, $productCategories);
+        }
+
+        $type = 'success';
+        $message = 'Produto <b>"' . $response->name . '"</b> atualizado com sucesso!';
+        if (empty($response)) {
+            $type = 'warning';
+            $message = 'Falha ao atualizar o Produto! Tente novamente.';
+        }
+        Flash::set($type, $message);
+        return $this->redirect('/produtos');
+    }
 }
