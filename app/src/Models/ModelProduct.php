@@ -45,7 +45,9 @@ class ModelProduct extends Model
         array $categories
     ) {
         $this->deleteAllProductCategories($idProduct);
-        return $this->createProductWithCategory($idProduct, $categories);
+        if (!empty($categories)) {
+            return $this->createProductWithCategory($idProduct, $categories);
+        }
     }
 
     public function getProductWithCategories(int $id)

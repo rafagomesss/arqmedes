@@ -134,10 +134,10 @@ class ProductController extends Controller
         }
 
         $product = new Product($data);
-        $productCategories = $data['categories'] ?? null;
-        $response = (new ModelProduct())->update($product);
+        $productCategories = $data['categories'] ?? [];
+         $response = (new ModelProduct())->update($product);
 
-        if ($response && $productCategories) {
+        if ($response) {
             (new ModelProduct())->updateProductCategories($response->id, $productCategories);
         }
 
