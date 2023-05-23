@@ -10,6 +10,7 @@ $routes = [
             'registrar' => 'store',
             'detalhes' => 'show',
             'excluir' => 'delete',
+            'atualizar' => 'update',
         ],
     ],
     'categorias' => [
@@ -21,6 +22,7 @@ $routes = [
             'registrar' => 'store',
             'detalhes' => 'show',
             'excluir' => 'delete',
+            'atualizar' => 'update',
         ],
     ],
 ];

@@ -1,6 +1,6 @@
 <form action="/categorias/<?= strtolower($action); ?>" method="post">
     <div class="form-group">
-        <?php if ($action === 'Editar') : ?>
+        <?php if ($action === 'atualizar') : ?>
             <input type="hidden" name="id" value="<?= $category->id; ?>">
         <?php endif; ?>
         <label for="name">Categoria</label>

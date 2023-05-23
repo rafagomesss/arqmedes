@@ -60,7 +60,7 @@ class CategoryController extends Controller
 
         $data = [
             'category' => $category,
-            'action' => 'Editar',
+            'action' => 'atualizar',
         ];
         return $this->render('modules/category/create-update', $data);
     }
@@ -78,5 +78,24 @@ class CategoryController extends Controller
 
         Flash::set($type, $message);
         return $this->redirect('/produtos');
+    }
+
+    public function update()
+    {
+        $data = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
+        if (
+            empty($data['id'])
+            || !$this->categoryExists(intval(trim($data['id'])))
+        ) {
+            Flash::set('warning', 'Categoria <u>não</u> encontrada!');
+            return $this->redirect('/categorias');
+        }
+
+        $category = new Category($data);
+        echo '<pre>' . print_r($category, true) . '</pre>';
+        exit();
+        $response = (new ModelCategory())->update($category);
+        Flash::set('success', 'Categoria <b>"' . $response->name . '"</b> atualizada com sucesso!');
+        return $this->redirect('/categorias');
     }
 }
