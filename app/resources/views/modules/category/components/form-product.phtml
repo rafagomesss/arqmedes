@@ -1,7 +1,10 @@
 <form action="/categorias/<?= strtolower($action); ?>" method="post">
     <div class="form-group">
+        <?php if ($action === 'Editar') : ?>
+            <input type="hidden" name="id" value="<?= $category->id; ?>">
+        <?php endif; ?>
         <label for="name">Categoria</label>
-        <input id="name" name="name" type="text" class="form-control">
+        <input id="name" name="name" type="text" class="form-control" value="<?= $category->name ?? null; ?>">
     </div>
     <button class="btn btn-primary btn-sm btn-block p-2 float-right"><?= $action; ?></button>
 </form>

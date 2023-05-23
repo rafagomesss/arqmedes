@@ -13,6 +13,15 @@ class CategoryController extends Controller
 {
     protected string $activeController = 'categorias';
 
+    private function categoryExists(int $id): bool
+    {
+        $product = (new ModelCategory())->find($id);
+        if (!empty($product)) {
+            return true;
+        }
+        return false;
+    }
+
     public function index()
     {
         $data = [
@@ -37,5 +46,37 @@ class CategoryController extends Controller
         $response = (new ModelCategory())->create($category);
         Flash::set('success', 'Categoria <b>"' . $response->name . '"</b> cadastrada com sucesso!');
         return $this->redirect('/categorias');
+    }
+
+    public function edit(int $id)
+    {
+        if (!$this->categoryExists($id)) {
+            Flash::set('warning', 'Categoria <u>não</u> encontrado!');
+            return $this->redirect('/categorias');
+        }
+
+        $databaseCategory = (new ModelCategory())->find($id);
+        $category = new Category((array) $databaseCategory);
+
+        $data = [
+            'category' => $category,
+            'action' => 'Editar',
+        ];
+        return $this->render('modules/category/create-update', $data);
+    }
+
+    public function delete(int $id)
+    {
+        $type = 'warning';
+        $message = 'Categoria não encontrada!';
+
+        if ($this->categoryExists($id)) {
+            $type = 'success';
+            $message = 'Categoria <u>excluída</u> com sucesso!';
+            (new ModelCategory())->delete($id);
+        }
+
+        Flash::set($type, $message);
+        return $this->redirect('/produtos');
     }
 }
