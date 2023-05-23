@@ -19,9 +19,12 @@ class Product
         $keys = array_keys($data);
 
         foreach ($keys as $key) {
+            if ($key === 'price') {
+                $this->$key = floatval(str_replace(',', '.', $data[$key]));
+                continue;
+            }
             if ($key === 'categories') continue;
             $this->$key = $data[$key];
         }
-
     }
 }

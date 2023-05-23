@@ -14,6 +14,15 @@ class ProductController extends Controller
 {
     protected string $activeController = 'produtos';
 
+    private function productExists(int $id): bool
+    {
+        $product = (new ModelProduct())->find($id);
+        if (!empty($product)) {
+            return true;
+        }
+        return false;
+    }
+
     public function index()
     {
         $data = [
@@ -35,34 +44,60 @@ class ProductController extends Controller
     public function store()
     {
         $data = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
+        $data = array_filter($data, function ($item) {
+            if (!empty($item)) return true;
+        });
+
+        if (empty($data) || count($data) < 4) {
+            Flash::set('warning', 'Dados inválidos!');
+            return $this->redirect('/produtos/cadastrar');
+        }
+
         $product = new Product($data);
         $productCategories = $data['categories'] ?? null;
         $response = (new ModelProduct())->create($product);
+
         if ($response && $productCategories) {
             (new ModelProduct())->createProductWithCategory($response->id, $productCategories);
         }
+
         Flash::set('success', 'Produto <b>"' . $response->name . '"</b> cadastrado com sucesso!');
         return $this->redirect('/produtos');
     }
 
     public function show(int $id)
     {
-        $get = (new ModelProduct())->getProductWithCategories($id);
-        $product = new Product((array) $get);
-        $product->categories = explode(',', $get->categories ?? 'Nenhuma categoria cadastrada para o produto');
+        if (!$this->productExists($id)) {
+            Flash::set('warning', 'Produto <u>não</u> encontrado!');
+            return $this->redirect('/produtos');
+        }
+
+        $modelProduct = (new ModelProduct())->getProductWithCategories($id);
+        $product = new Product((array) $modelProduct);
+        $product->categories = explode(',', $modelProduct->categories ?? 'Nenhuma categoria cadastrada para o produto');
+
         $data = [
             'product' => $product
         ];
+
         return $this->render('modules/product/show', $data);
     }
 
     public function edit(int $id)
     {
+        if (!$this->productExists($id)) {
+            Flash::set('warning', 'Produto <u>não</u> encontrado!');
+            return $this->redirect('/produtos');
+        }
+
         $databaseProduct = (new ModelProduct())->getProductWithCategories($id);
         $product = new Product((array) $databaseProduct);
         $product->categories = explode(',', $product->categories_id);
+
         unset($product->categories_id);
+
         $categories = (new ModelCategory())->all();
+
         $data = [
             'product' => $product,
             'categories' => $categories,
@@ -73,14 +108,15 @@ class ProductController extends Controller
 
     public function delete(int $id)
     {
-        $product = (new ModelProduct())->find($id);
         $type = 'warning';
         $message = 'Produto não encontrado!';
-        if (!empty($product)) {
+
+        if ($this->productExists($id)) {
             $type = 'success';
-            $message = 'Produto <b>"' . $product->name . '"</b> excluído com sucesso!';
-            (new ModelProduct())->delete($product->id);
+            $message = 'Produto <u>excluído</u> com sucesso!';
+            (new ModelProduct())->delete($id);
         }
+
         Flash::set($type, $message);
         return $this->redirect('/produtos');
     }
