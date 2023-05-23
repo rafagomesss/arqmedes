@@ -92,7 +92,7 @@ class ProductController extends Controller
 
         $databaseProduct = (new ModelProduct())->getProductWithCategories($id);
         $product = new Product((array) $databaseProduct);
-        $product->categories = explode(',', $product->categories_id);
+        $product->categories = explode(',', $product->categories_id ?? '');
 
         unset($product->categories_id);
 
@@ -101,7 +101,7 @@ class ProductController extends Controller
         $data = [
             'product' => $product,
             'categories' => $categories,
-            'action' => 'Editar',
+            'action' => 'atualizar',
         ];
         return $this->render('modules/product/create-update', $data);
     }

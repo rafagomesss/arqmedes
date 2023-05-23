@@ -3,6 +3,7 @@ USE arqmedes;
 
 # Os campos products.sku e categories.name, a depender do contexto poderão ser utilizados como UNIQUE
 # Como não havia previsto nos requisitos, deixei os campos livres
+DROP TABLE IF EXISTS products;
 CREATE TABLE IF NOT EXISTS products(
 	id INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Identificador da tabela de produtos',
 	name VARCHAR(255) NOT NULL COMMENT 'Nome do produto',
@@ -16,6 +17,7 @@ CREATE TABLE IF NOT EXISTS products(
 	PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
+DROP TABLE IF EXISTS categories;
 CREATE TABLE IF NOT EXISTS categories (
 	id INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'Identificador da tabela de categorias dos produtos',
     name VARCHAR(255) NOT NULL COMMENT 'Nome da categoria que produtos poderão pertencer',
@@ -24,6 +26,7 @@ CREATE TABLE IF NOT EXISTS categories (
     PRIMARY KEY (id)
 );
 
+DROP TABLE IF EXISTS product_categories;
 CREATE TABLE IF NOT EXISTS product_categories (
   product_id INT UNSIGNED NOT NULL COMMENT 'Identificador do produto',
   category_id INT UNSIGNED NOT NULL COMMENT 'Identificador da categoria',

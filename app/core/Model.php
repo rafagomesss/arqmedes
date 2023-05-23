@@ -97,4 +97,17 @@ class Model
         $statement->execute();
         return $statement->rowCount();
     }
+
+    public function update(array|object $data): ?stdClass
+    {
+        $fields = array_keys((array) $data);
+        $fields = array_filter($fields, function ($item) {
+            return $item !== 'id' ? true : false;
+        });
+        $placeholders = implode(", ", array_map(fn ($field) => "$field = :$field", $fields));
+        $sql = "UPDATE $this->table SET $placeholders WHERE id = :id";
+        $statement = $this->bind($sql, $data);
+        $statement->execute();
+        return $statement->rowCount() > 0 ? $this->find($data->id) : null;
+    }
 }

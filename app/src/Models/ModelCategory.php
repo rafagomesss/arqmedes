@@ -15,8 +15,12 @@ class ModelCategory extends Model
         parent::__construct();
     }
 
-    public function getCategoriesByProduct(int $idProduct)
+    public function deleteRelations(int $id)
     {
         $sql = "";
+        $sql = "DELETE FROM product_categories WHERE category_id = :id";
+        $statement = $this->connection->prepare($sql);
+        $statement = $this->bind($sql, ['id' => $id]);
+        return $statement->execute();
     }
 }

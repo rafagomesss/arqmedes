@@ -74,6 +74,9 @@ class CategoryController extends Controller
             $type = 'success';
             $message = 'Categoria <u>excluída</u> com sucesso!';
             (new ModelCategory())->delete($id);
+            $modelCategory = (new ModelCategory());
+            $modelCategory->delete($id);
+            $modelCategory->deleteRelations($id);
         }
 
         Flash::set($type, $message);
@@ -92,10 +95,14 @@ class CategoryController extends Controller
         }
 
         $category = new Category($data);
-        echo '<pre>' . print_r($category, true) . '</pre>';
-        exit();
         $response = (new ModelCategory())->update($category);
-        Flash::set('success', 'Categoria <b>"' . $response->name . '"</b> atualizada com sucesso!');
+        $type = 'success';
+        $message = 'Categoria <b>"' . $response->name . '"</b> atualizada com sucesso!';
+        if (empty($response)) {
+            $type = 'warning';
+            $message = 'Falha ao atualizar a categoria! Tente novamente.';
+        }
+        Flash::set($type, $message);
         return $this->redirect('/categorias');
     }
 }
