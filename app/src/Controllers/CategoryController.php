@@ -80,7 +80,7 @@ class CategoryController extends Controller
         }
 
         Flash::set($type, $message);
-        return $this->redirect('/produtos');
+        return $this->redirect('/categorias');
     }
 
     public function update()
