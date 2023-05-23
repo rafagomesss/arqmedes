@@ -9,6 +9,7 @@ $routes = [
             'cadastrar' => 'create',
             'registrar' => 'store',
             'detalhes' => 'show',
+            'excluir' => 'delete',
         ],
     ],
     'categorias' => [

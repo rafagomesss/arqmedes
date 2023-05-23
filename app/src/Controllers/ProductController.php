@@ -27,7 +27,7 @@ class ProductController extends Controller
     {
         $data = [
             'action' => 'Registrar',
-
+            'categories' => (new ModelCategory())->all(),
         ];
         return $this->render('modules/product/create-update', $data);
     }
@@ -36,9 +36,9 @@ class ProductController extends Controller
     {
         $data = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
         $product = new Product($data);
-        $productCategories = $data['categories'];
+        $productCategories = $data['categories'] ?? null;
         $response = (new ModelProduct())->create($product);
-        if ($response) {
+        if ($response && $productCategories) {
             (new ModelProduct())->createProductWithCategory($response->id, $productCategories);
         }
         Flash::set('success', 'Produto <b>"' . $response->name . '"</b> cadastrado com sucesso!');
@@ -60,12 +60,28 @@ class ProductController extends Controller
     {
         $databaseProduct = (new ModelProduct())->getProductWithCategories($id);
         $product = new Product((array) $databaseProduct);
+        $product->categories = explode(',', $product->categories_id);
+        unset($product->categories_id);
         $categories = (new ModelCategory())->all();
         $data = [
             'product' => $product,
             'categories' => $categories,
+            'action' => 'Editar',
         ];
-        echo '<pre>' . print_r($data, true) . '</pre>';
-        exit();
+        return $this->render('modules/product/create-update', $data);
+    }
+
+    public function delete(int $id)
+    {
+        $product = (new ModelProduct())->find($id);
+        $type = 'warning';
+        $message = 'Produto não encontrado!';
+        if (!empty($product)) {
+            $type = 'success';
+            $message = 'Produto <b>"' . $product->name . '"</b> excluído com sucesso!';
+            (new ModelProduct())->delete($product->id);
+        }
+        Flash::set($type, $message);
+        return $this->redirect('/produtos');
     }
 }

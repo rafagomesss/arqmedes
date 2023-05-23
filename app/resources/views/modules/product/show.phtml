@@ -1,8 +1,3 @@
-<!-- <?php
-
-echo '<pre>' . print_r($product, true) . '</pre>';
-?> -->
-
 <div class="row">
     <div class="col-12 d-flex justify-content-start align-items-center mb-5">
         <a class="btn btn-sm btn-info text-white" href="/produtos"><i class="fa-solid fa-backward-step"></i> Voltar</a>
@@ -35,39 +30,56 @@ echo '<pre>' . print_r($product, true) . '</pre>';
                                     <td scope="row"><?= $product->description; ?></td>
                                     <td scope="row"><?= $product->quantity; ?></td>
                                 </tr>
-                                <tr class="px-0 mx-0">
-                                    <td colspan="5">
-
-                                    </td>
-                                </tr>
-
                             </tbody>
                         </table>
-                    </div>
+                    </div> <!-- col -->
                     <div class="col">
-                        <div class="accordion mx-0 px-0" id="accordionExample">
-                            <div class="card">
-                                <div class="card-header bg-dark" id="headingOne">
-                                    <h2 class="mb-0">
-                                        <button class="btn btn-sm text-white" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            Categorias
-                                        </button>
-                                    </h2>
-                                </div>
-                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                    <div class="card-body">
-                                        <ul class="list-group list-group-flush">
-                                            <?php foreach ($product->categories as $category) : ?>
-                                                <li class="list-group-item"><?= $category; ?></li>
-                                            <?php endforeach; ?>
-                                        </ul>
+                        <div class="accordion accordion-flush" id="accordionExample">
+                            <div class="accordion-item">
+                                <div class="card">
+                                    <div class="card-header bg-dark">
+                                        <h2 class="accordion-header">
+                                            <button id="categoriesShow" class="w-100 d-flex btn btn-sm text-white align-items-center justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                Categorias <small>clique para expandir</small><i class="fa-solid fa-chevron-down"></i>
+                                            </button>
+                                        </h2>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                                    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                        <div class="card-body">
+                                            <div class="accordion-body">
+                                                <ul class="list-group list-group-flush">
+                                                    <?php if (!empty($product->categories)) : ?>
+                                                        <?php foreach ($product->categories as $category) : ?>
+                                                            <li class="list-group-item"><?= $category; ?></li>
+                                                        <?php endforeach; ?>
+                                                    <?php else : ?>
+                                                        <li class="list-group-item">Nenhuma categoria cadastrada para o produto</li>
+                                                    <?php endif; ?>
+                                                </ul>
+                                            </div>
+                                        </div> <!-- card-body -->
+                                    </div> <!-- collapseOne -->
+                                </div> <!-- card -->
+                            </div> <!-- accordion-item -->
+                        </div> <!-- accordion accordion-flush -->
+                    </div> <!-- col -->
+                </div> <!-- row -->
+            </div> <!-- card-body -->
+        </div> <!-- card -->
+    </div> <!-- col -->
+</div> <!-- row -->
+
+<script>
+    $(document).ready(() => {
+        let isShow = $('#collapseOne').hasClass('show');
+        $('#categoriesShow').on('click', function(event) {
+            const arrow = $(event.target).find('svg');
+            let isArrowDown = arrow.attr('data-icon').split('-').includes('down');
+            arrow.attr('data-icon', 'chevron-down');
+            if (isArrowDown) {
+                arrow.attr('data-icon', 'chevron-up');
+            }
+        });
+
+    });
+</script>

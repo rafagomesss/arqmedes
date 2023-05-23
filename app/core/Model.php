@@ -89,4 +89,12 @@ class Model
         }
         return null;
     }
+
+    public function delete(int $id)
+    {
+        $sql = "DELETE FROM $this->table WHERE id = :id";
+        $statement = $this->bind($sql, ['id' => $id]);
+        $statement->execute();
+        return $statement->rowCount();
+    }
 }
