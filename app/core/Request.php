@@ -29,9 +29,11 @@ class Request
             : DEFAULT_CONTROLLER;
         $this->setController($translatedController);
 
-        $translatedAction = !empty(SYSTEM_ROUTES[$controller])
-            ? SYSTEM_ROUTES[$controller]['actions'][$action]
-            : DEFAULT_ACTION;
+        // $translatedAction = !empty(SYSTEM_ROUTES[$controller])
+        //     ? SYSTEM_ROUTES[$controller]['actions'][$action] ?? $action
+        //     : DEFAULT_ACTION;
+
+        $translatedAction = SYSTEM_ROUTES[$controller]['actions'][$action] ?? $action ?? DEFAULT_ACTION;
 
         $this->setAction($translatedAction);
 

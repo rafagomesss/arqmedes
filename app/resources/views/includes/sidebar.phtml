@@ -1,34 +1,37 @@
 <nav id="sidebar">
     <div class="p-4 pt-5">
-        <a href="#" class="img logo rounded-circle mb-5" style="background-image: url(assets/images/logo.jpg);"></a>
-        <ul class="list-unstyled components mb-5">
+        <?php if (\Arqmedes\Core\Session\Session::has('user')) : ?>
+            <a href="#" class="img logo rounded-circle mb-5" style="background-image: url(assets/images/logo.jpg);"></a>
+        <?php endif; ?>
+            <ul class="list-unstyled components mb-5">
             <li class="<?= $this->activeController === 'home' ? 'active' : ''; ?>">
                 <a href="/">Home</a>
             </li>
-            <li class="<?= $this->activeController === 'produtos' ? 'active' : ''; ?>">
-                <a
-                    class="dropdown-toggle"
-                    data-bs-toggle="collapse"
-                    href="#produtosSubMenu"
-                    role="button"
-                    aria-expanded="<?= $this->activeController === 'produtos' ? 'true' : 'false'; ?>"
-                    aria-controls="produtosSubMenu"
-                >
-                    Produtos
-                </a>
-                <ul
-                    class="collapse list-unstyled <?= $this->activeController === 'produtos' ? 'show' : ''; ?>"
-                    id="produtosSubMenu"
-                >
-                    <li class="dropdown-item">
-                        <a href="/produtos">Lista</a>
-                    </li>
-                    <li class="dropdown-item">
-                        <a href="/produtos/cadastrar">Cadastrar</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="<?= $this->activeController === 'categorias' ? 'active' : ''; ?>">
+            <?php if (\Arqmedes\Core\Session\Session::has('user')) : ?>
+                <li class="<?= $this->activeController === 'produtos' ? 'active' : ''; ?>">
+                    <a
+                        class="dropdown-toggle"
+                        data-bs-toggle="collapse"
+                        href="#produtosSubMenu"
+                        role="button"
+                        aria-expanded="<?= $this->activeController === 'produtos' ? 'true' : 'false'; ?>"
+                        aria-controls="produtosSubMenu"
+                    >
+                        Produtos
+                    </a>
+                    <ul
+                        class="collapse list-unstyled <?= $this->activeController === 'produtos' ? 'show' : ''; ?>"
+                        id="produtosSubMenu"
+                    >
+                        <li class="dropdown-item">
+                            <a href="/produtos">Lista</a>
+                        </li>
+                        <li class="dropdown-item">
+                            <a href="/produtos/cadastrar">Cadastrar</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="<?= $this->activeController === 'categorias' ? 'active' : ''; ?>">
                 <a
                     class="dropdown-toggle"
                     data-bs-toggle="collapse"
@@ -50,6 +53,7 @@
                     </li>
                 </ul>
             </li>
+            <?php endif; ?>
         </ul>
 
         <div class="footer">

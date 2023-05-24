@@ -18,15 +18,25 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="nav navbar-nav ml-auto">
+            <ul class="nav navbar-nav ml-2">
                 <li class="nav-item <?= $this->activeController === 'home' ? 'active' : ''; ?>">
                     <a class="nav-link" href="/">Home</a>
                 </li>
-                <li class="nav-item <?= $this->activeController === 'produtos' ? 'active' : ''; ?>">
-                    <a class="nav-link" href="/produtos">Produtos</a>
+                <?php if (\Arqmedes\Core\Session\Session::has('user')) : ?>
+                    <li class="nav-item <?= $this->activeController === 'produtos' ? 'active' : ''; ?>">
+                        <a class="nav-link" href="/produtos">Produtos</a>
+                    </li>
+                    <li class="nav-item <?= $this->activeController === 'categorias' ? 'active' : ''; ?>">
+                        <a class="nav-link" href="/categorias">Categorias</a>
+                    </li>
+                <?php endif; ?>
+            </ul>
+            <ul class="nav navbar-nav ml-auto d-flex row justify-content-between ">
+                <li class="col-auto nav-item">
+                    <a class="btn btn-sm btn-primary nav-link text-white" href="/signin">Login</a>
                 </li>
-                <li class="nav-item <?= $this->activeController === 'categorias' ? 'active' : ''; ?>">
-                    <a class="nav-link" href="/categorias">Categorias</a>
+                <li class="col-auto nav-item">
+                    <a class="btn btn-sm btn-success nav-link text-white" href="/signup">Cadastre-se</a>
                 </li>
             </ul>
         </div>

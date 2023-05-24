@@ -25,6 +25,14 @@ $routes = [
             'atualizar' => 'update',
         ],
     ],
+    'auth' => [
+        'controller' => 'AuthController',
+        'actions' => [
+            'login' => 'login',
+            'registrar' => 'register',
+            'signin' => 'signin'
+        ],
+    ],
 ];
 
 define('SYSTEM_ROUTES', $routes);

@@ -1,0 +1,15 @@
+<div class="row d-flex justify-content-center align-items-center h-100">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header h4">
+                <?= $action; ?>
+            </div>
+            <div class="card-body">
+                <?php require_once 'components' . DIRECTORY_SEPARATOR . 'form-auth.phtml'; ?>
+            </div>
+            <div class="card-footer">
+                <p>Não possui uma conta? <a href="/auth/registrar">Registre-se.</a></p>
+            </div>
+        </div>
+    </div>
+</div>
