@@ -46,7 +46,7 @@ class Model
         return $this->connection->query("SELECT * FROM $this->table")->fetchAll();
     }
 
-    public function where(array $conditions)
+    public function where(array $conditions): array
     {
         $whereConditions = [];
         foreach ($conditions as $field => $value) {

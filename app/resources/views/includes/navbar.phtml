@@ -32,12 +32,18 @@
                 <?php endif; ?>
             </ul>
             <ul class="nav navbar-nav ml-auto d-flex row justify-content-between ">
-                <li class="col-auto nav-item">
-                    <a class="btn btn-sm btn-primary nav-link text-white" href="/signin">Login</a>
-                </li>
-                <li class="col-auto nav-item">
-                    <a class="btn btn-sm btn-success nav-link text-white" href="/signup">Cadastre-se</a>
-                </li>
+                <?php if (!\Arqmedes\Core\Session\Session::has('user')) : ?>
+                    <li class="col-auto nav-item">
+                        <a class="btn btn-sm btn-primary nav-link text-white" href="/auth/signin">Login</a>
+                    </li>
+                    <li class="col-auto nav-item">
+                        <a class="btn btn-sm btn-success nav-link text-white" href="/auth/signup">Cadastre-se</a>
+                    </li>
+                <?php else: ?>
+                    <li class="col-auto nav-item">
+                        <a class="btn btn-sm btn-primary nav-link text-white" href="/auth/logout">Sair <i class="fa-solid fa-right-from-bracket"></i></a>
+                    </li>
+                <?php endif; ?>
             </ul>
         </div>
     </div>

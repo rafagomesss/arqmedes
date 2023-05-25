@@ -8,6 +8,13 @@ class Controller
 {
     protected string $activeController = 'home';
 
+    protected Request $request;
+
+    public function __construct()
+    {
+        $this->request = new Request();
+    }
+
     protected function redirect(string $uri)
     {
         header('Location: ' . $this->getBaseUrl() . $uri);

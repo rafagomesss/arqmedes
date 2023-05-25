@@ -21,7 +21,7 @@ class Flash
     public static function hasFlashMessage(): string|bool
     {
         if (!empty($_SESSION)) {
-            foreach(array_keys($_SESSION) as $key) {
+            foreach (array_keys($_SESSION) as $key) {
                 if (in_array($key, ALERT_TYPES)) {
                     return $key;
                 }

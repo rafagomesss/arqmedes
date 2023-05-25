@@ -1,6 +1,33 @@
 CREATE DATABASE IF NOT EXISTS arqmedes CHARSET utf8mb4 COLLATE utf8mb4_general_ci;
 USE arqmedes;
 
+DROP TABLE IF EXISTS roles;
+CREATE TABLE IF NOT EXISTS roles
+(
+    id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+    role ENUM('ADMIN', 'MANAGER', 'USER') UNIQUE NOT NULL,
+    PRIMARY KEY(id)
+) ENGINE = InnoDB;
+INSERT INTO roles (role) VALUES ('ADMIN'), ('MANAGER'), ('USER');
+
+DROP TABLE IF EXISTS users;
+CREATE TABLE IF NOT EXISTS users
+(
+    id BIGINT UNSIGNED AUTO_INCREMENT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(200) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role_id INT UNSIGNED,
+    is_admin BOOLEAN NOT NULL DEFAULT false,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at DATETIME,
+    CONSTRAINT fk_users_roles
+        FOREIGN KEY (role_id)
+        REFERENCES roles(id),
+    PRIMARY KEY(id)
+) ENGINE = InnoDB;
+
 # Os campos products.sku e categories.name, a depender do contexto poderão ser utilizados como UNIQUE
 # Como não havia previsto nos requisitos, deixei os campos livres
 DROP TABLE IF EXISTS products;

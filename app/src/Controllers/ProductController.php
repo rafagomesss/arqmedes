@@ -29,6 +29,7 @@ class ProductController extends Controller
             'produtos' => (new ModelProduct())->all(),
             'metodo' => 'index'
         ];
+
         return $this->render('modules/product/list', $data);
     }
 
@@ -38,6 +39,7 @@ class ProductController extends Controller
             'action' => 'Registrar',
             'categories' => (new ModelCategory())->all(),
         ];
+
         return $this->render('modules/product/create-update', $data);
     }
 
@@ -135,7 +137,7 @@ class ProductController extends Controller
 
         $product = new Product($data);
         $productCategories = $data['categories'] ?? [];
-         $response = (new ModelProduct())->update($product);
+        $response = (new ModelProduct())->update($product);
 
         if ($response) {
             (new ModelProduct())->updateProductCategories($response->id, $productCategories);

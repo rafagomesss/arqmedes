@@ -17,7 +17,7 @@ class Router
 
     private function classExistsRouter(): bool
     {
-        return class_exists($this->request->controller = "Arqmedes\Controllers\\" . $this->request->controller);
+        return class_exists($this->request->controller);
     }
 
     private function methodExistsRouter(): bool
@@ -36,6 +36,7 @@ class Router
             [new $this->request->controller, $this->request->action],
             [$this->request->args]
         );
+
         print $response;
     }
 }

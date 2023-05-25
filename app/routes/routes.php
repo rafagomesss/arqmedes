@@ -2,7 +2,7 @@
 
 $routes = [
     'produtos' => [
-        'controller' => 'ProductController',
+        'controller' => 'Product',
         'actions' => [
             '' => 'index',
             'editar' => 'edit',
@@ -14,7 +14,7 @@ $routes = [
         ],
     ],
     'categorias' => [
-        'controller' => 'CategoryController',
+        'controller' => 'Category',
         'actions' => [
             '' => 'index',
             'editar' => 'edit',
@@ -26,11 +26,13 @@ $routes = [
         ],
     ],
     'auth' => [
-        'controller' => 'AuthController',
+        'controller' => 'Auth',
         'actions' => [
             'login' => 'login',
             'registrar' => 'register',
-            'signin' => 'signin'
+            'signin' => 'signin',
+            'signup' => 'signup',
+            'logout' => 'logout',
         ],
     ],
 ];

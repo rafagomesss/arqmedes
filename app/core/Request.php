@@ -24,14 +24,8 @@ class Request
         $controller = array_shift($uri);
         $action = array_shift($uri);
 
-        $translatedController = !empty(SYSTEM_ROUTES[$controller])
-            ? SYSTEM_ROUTES[$controller]['controller']
-            : DEFAULT_CONTROLLER;
+        $translatedController = SYSTEM_ROUTES[$controller]['controller'] ?? $controller ?? DEFAULT_CONTROLLER;
         $this->setController($translatedController);
-
-        // $translatedAction = !empty(SYSTEM_ROUTES[$controller])
-        //     ? SYSTEM_ROUTES[$controller]['actions'][$action] ?? $action
-        //     : DEFAULT_ACTION;
 
         $translatedAction = SYSTEM_ROUTES[$controller]['actions'][$action] ?? $action ?? DEFAULT_ACTION;
 
@@ -60,10 +54,14 @@ class Request
 
     public function setController(?string $controller)
     {
-        $controller = empty($controller)
-            ? DEFAULT_CONTROLLER
-            : $controller;
-        $this->controller = $controller;
+        $path = "Arqmedes\Controllers\\";
+
+        $fullController = $path . DEFAULT_CONTROLLER;
+        if (!empty($controller)) {
+            $fullController = $path . ucfirst($controller) . 'Controller';
+        }
+
+        $this->controller = $fullController;
     }
 
     public function setArgs(?array $args)

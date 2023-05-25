@@ -1,17 +1,24 @@
-<form action="" method="post">
+<form action="/auth/<?= strtolower($action); ?>" method="post">
+    <?php if (strtolower($action) === 'registrar') : ?>
+        <div class="mb-3">
+            <label for="name" class="form-label">Nome Completo</label>
+            <input id="name" name="name" type="text" class="form-control" aria-describedby="helpId">
+            <small id="helpId" class="form-text text-muted">Help text</small>
+        </div>
+    <?php endif; ?>
     <div class="mb-3">
         <label for="email" class="form-label">E-mail</label>
-        <input id="email" name="email" type="email" class="form-control" aria-describedby="helpId">
+        <input id="email" name="email" type="email" class="form-control" aria-describedby="helpId" autofocus>
         <small id="helpId" class="form-text text-muted">Help text</small>
     </div>
     <div class="mb-3">
-        <label for="email" class="form-label">Senha</label>
+        <label for="password" class="form-label">Senha</label>
         <input id="password" name="password" type="password" class="form-control" aria-describedby="helpId">
         <small id="helpId" class="form-text text-muted">Help text</small>
     </div>
     <?php if (strtolower($action) === 'registrar') : ?>
         <div class="mb-3">
-            <label for="email" class="form-label">Confirme a senha</label>
+            <label for="confirm_password" class="form-label">Confirme a senha</label>
             <input id="confirm_password" name="confirm_password" type="password" class="form-control" aria-describedby="helpId">
             <small id="helpId" class="form-text text-muted">Help text</small>
         </div>
